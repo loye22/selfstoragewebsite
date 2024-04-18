@@ -121,7 +121,7 @@ class webSiteFaqPage extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
+          /*  Container(
               padding: EdgeInsets.all(80),
               height: staticVar.golobalHigth(context) * .99,
               width: double.infinity,
@@ -221,7 +221,7 @@ class webSiteFaqPage extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            )*/
           ],
         ),
       ),
