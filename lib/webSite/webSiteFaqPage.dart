@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:self_storage_web_site/webSite/staticVar.dart';
 import 'package:self_storage_web_site/widget/SidebarLayout.dart';
 import 'package:self_storage_web_site/widget/button.dart';
+import 'package:self_storage_web_site/widget/footer.dart';
 import 'package:self_storage_web_site/widget/header.dart';
 import 'package:self_storage_web_site/widget/panner.dart';
 import 'package:self_storage_web_site/widget/panner3.dart';
@@ -188,19 +189,19 @@ class webSiteFaqPage extends StatelessWidget {
                 ],
               ),
             ),
-
-
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 20),
-              // child: Center(child: Expanded(child: )),
-            // ),
             Container(
               height: 600,
               child: Padding(
-                padding: const EdgeInsets.only(top: 50 , ),
+                padding: const EdgeInsets.only(
+                  top: 50,
+                ),
                 child: Column(
                   children: [
-                    Text("Ce spun clienții noștri" , style: TextStyle(fontSize: 34 , fontWeight: FontWeight.bold),) ,
+                    Text(
+                      "Ce spun clienții noștri",
+                      style:
+                          TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,7 +229,169 @@ class webSiteFaqPage extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
+            Container(
+              padding: EdgeInsets.all(80),
+              height: staticVar.golobalHigth(context) + 100,
+              width: double.infinity,
+              color: Color(0xFFF4F4F5),
+              child: Row(
+                children: [
+                  Container(
+                    clipBehavior: Clip.hardEdge,
+                    width: staticVar.golobalWidth(context) * .5,
+                    height: staticVar.golobalHigth(context) * .8,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      // Ensures circular clipping
+                      child: Image.asset(
+                        "assets/m7.jpg",
+                        fit: BoxFit
+                            .cover, // Optional, to cover the entire container
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    width: staticVar.golobalWidth(context) * .4,
+                    padding: EdgeInsets.only(top: 20, left: 20),
+                    margin: EdgeInsets.all(20.0),
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Despre noi",
+                            style: TextStyle(
+                                fontSize: 36.0, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 10.0),
+                          Text(
+                            'Self Storage este soluția ideală pentru nevoile de depozitare atât pentru persoane fizice cât și juridice.',
+                            style: TextStyle(
+                                fontSize: 18.0, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 20.0),
+                          Text(
+                            'Cum ne diferențiem?',
+                            style: TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 10.0),
+                          Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.start,
+                            children: [
+                              Text(
+                                '- Asigurăm monitorizare permanentă',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Temperatura locației este controlată',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Închirierea boxei se face în doar câteva minute, complet online',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Îți poți găzdui chiar și sediul social al firmei în boxa ta',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Locație centrală',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20.0),
+                          Text(
+                            'Ce poți depozita în boxa ta?',
+                            style: TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 10.0),
+                          Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.start,
+                            children: [
+                              Text(
+                                '- Actele companiei fără riscul de a se deteriora datorită umezelii sau diferențelor extreme de temperatură',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Piese de mobilier și alte obiecte personale de care nu mai ai loc prin casă',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Motocicleta, anvelopele de iarnă, bicicletele tale și ale celor mici... toate într-un singur depozit',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Practic poți depozita orice, doar să alegi dimensiunea potrivită pentru boxa ta.',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20.0),
+                          Text(
+                            'Cu selfstorage-ul nostru, aveți posibilitatea de a gestiona spațiul dvs. în mod eficient și de a păstra lucrurile importante în condiții sigure.',
+                            style: TextStyle(fontSize: 16.0),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(80),
+              height: staticVar.golobalHigth(context) * .5,
+              width: double.infinity,
+              color: staticVar.themeColor,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Rezervă-ți spațiul de depozitare astăzi',
+                      style: TextStyle(
+                          fontSize:37.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white
+                      ),
+                    ),  
+                    SizedBox(height: 15,) , 
+                    Text(
+                      'Răsfoiți opțiunile noastre de depozitare',
+                      style: TextStyle(
+                        fontSize:18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                      ),
+                    ),
+                    SizedBox(height: 10,) ,
+                    Button(
+                      onTap: () {},
+                      text: "Alege boxa",
+                      pdding: EdgeInsets.zero,
+                      lightMode : true
+                    ),
+
+                
+                
+                  ],
+                ),
+              )
+            ),
+            MyFooter(),
+
+
           ],
         ),
       ),
@@ -262,7 +425,7 @@ class ReviewCard extends StatelessWidget {
                 child: Row(
                   children: List.generate(
                     5,
-                        (index) => Icon(
+                    (index) => Icon(
                       Icons.star,
                       color: Color(0xFFFBAB12),
                     ),
@@ -277,8 +440,9 @@ class ReviewCard extends StatelessWidget {
                   style: TextStyle(fontSize: 16),
                 ),
               ),
-
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(

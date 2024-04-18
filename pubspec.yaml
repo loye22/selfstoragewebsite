@@ -39,6 +39,7 @@ dependencies:
   data_table_2: ^2.5.12
   google_fonts: ^6.2.0
   seo_renderer: ^0.6.0
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_test:

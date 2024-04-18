@@ -9,9 +9,10 @@ class Button extends StatefulWidget {
   double width ;
   double height ;
   EdgeInsets pdding ;
+  bool lightMode ;
 
-  Button({Key? key, required this.onTap, required this.text, this.color = const Color(0xFFFBAB12), this.width = 0.0 , this.height = 0.0 , this.pdding = const EdgeInsets.all(8.0) })
-      : super(key: key);
+  Button({Key? key, required this.onTap, required this.text, this.color = const Color(0xFFFBAB12),this.lightMode =false ,this.width = 0.0 , this.height = 0.0 , this.pdding = const EdgeInsets.all(8.0) })
+       : super(key: key);
 
   @override
   State<Button> createState() => _ButtonState();
@@ -32,10 +33,10 @@ class _ButtonState extends State<Button> {
           width:  widget.width == 0 ?  96 : widget.width,
           height:    widget.height == 0 ?  40 : widget.height,
           decoration: BoxDecoration(
-            color: widget.color,
+            color: widget.lightMode ?  Colors.white :  widget.color,
             borderRadius: BorderRadius.circular(13),
           ),
-          child: Center(child: Text(widget.text, style: TextStyle(color: Colors.white , fontSize: 14))),
+          child: Center(child: Text(widget.text, style: TextStyle(color:widget.lightMode ? staticVar.themeColor :  Colors.white , fontSize: 14))),
         ),
       ),
     );
