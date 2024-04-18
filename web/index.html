@@ -23,13 +23,13 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="self_storage_web_site">
+  <meta name="apple-mobile-web-app-title" content="selfstorage">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>self_storage_web_site</title>
+  <title>selfstorage</title>
   <link rel="manifest" href="manifest.json">
 
   <script>
@@ -40,7 +40,7 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
-  <script>
+<script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -55,12 +55,10 @@
       });
     });
   </script>
-
-
-  <script type="module">
+<script type="module">
   // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -72,8 +70,8 @@
     projectId: "selfstorage-de099",
     storageBucket: "selfstorage-de099.appspot.com",
     messagingSenderId: "32695980573",
-    appId: "1:32695980573:web:0cc928459c20b115d92cf4",
-    measurementId: "G-LREPB78HB4"
+    appId: "1:32695980573:web:9d2c02212bcb5ae8d92cf4",
+    measurementId: "G-PL7XTYN00E"
   };
 
   // Initialize Firebase
@@ -81,5 +79,9 @@
   const analytics = getAnalytics(app);
 </script>
 
+<script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
+<script type="text/javascript">
+   pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.worker.min.js";
+</script>
 </body>
 </html>

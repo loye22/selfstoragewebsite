@@ -29,7 +29,7 @@ class UseCaseCard extends StatelessWidget {
         children: [
           Container(
             width: staticVar.golobalWidth(context)  * .3,
-            height: staticVar.golobalHigth(context) * .35,
+            height: staticVar.golobalHigth(context) * .3,
             margin: EdgeInsets.only(right: 20.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
