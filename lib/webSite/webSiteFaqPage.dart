@@ -121,7 +121,7 @@ class webSiteFaqPage extends StatelessWidget {
                 ],
               ),
             ),
-          /*  Container(
+            Container(
               padding: EdgeInsets.all(80),
               height: staticVar.golobalHigth(context) * .99,
               width: double.infinity,
@@ -179,7 +179,7 @@ class webSiteFaqPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                       // Ensures circular clipping
                       child: Image.asset(
-                        "m7.jpg",
+                        "assets/m7.jpg",
                         fit: BoxFit
                             .cover, // Optional, to cover the entire container
                       ),
@@ -188,40 +188,47 @@ class webSiteFaqPage extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Center(child: Expanded(child: Text("Ce spun clienții noștri" , style: TextStyle(fontSize: 34 , fontWeight: FontWeight.bold),))),
-            ),
+
+
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 20),
+              // child: Center(child: Expanded(child: )),
+            // ),
             Container(
               height: 600,
               child: Padding(
                 padding: const EdgeInsets.only(top: 50 , ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
                   children: [
-                    ReviewCard(
-                      name: 'Marius Apostol',
-                      review:
-                          'A fost extrem de simplu sa rezerv o boxa, a 2a zi eram deja cu motorul la boxa. Au incaput motocicleta, bicicletele copiilor, schiurile si toate articolele sportive/jucariile copiilor. Super convenabil, stiu ca motocicleta mea sta in siguranta cu o temperatura controlata si pot veni oricand sa o vad si sa mai umblu la ea.',
-                      rating: 5,
-                    ),
-                    ReviewCard(
-                      name: 'Raluca Dan',
-                      review:
-                          'Altfel arata sediul in zona de nord a capitalei. Tot aici depozitez si toate actele firmei, simplu, safe, foarte misto. Imi place totul aici. Daca puteam, imi faceam si biroul tot aici :))',
-                      rating: 4,
-                    ),
-                    ReviewCard(
-                      name: 'Mihnea Radu',
-                      review:
-                          'Apreciez mult faptul ca se pune pret pe confidentialitate, securitate si curatenie. Am depozitat obiecte de valoare si prin faptul ca exista paza fizica mereu si nu a trebuit sa dau nicio explicatie, am simtit ca lucrurile mele sunt foarte in siguranta. Multumesc!',
-                      rating: 5,
+                    Text("Ce spun clienții noștri" , style: TextStyle(fontSize: 34 , fontWeight: FontWeight.bold),) ,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ReviewCard(
+                          name: 'Marius Apostol',
+                          review:
+                              'A fost extrem de simplu sa rezerv o boxa, a 2a zi eram deja cu motorul la boxa. Au incaput motocicleta, bicicletele copiilor, schiurile si toate articolele sportive/jucariile copiilor. Super convenabil, stiu ca motocicleta mea sta in siguranta cu o temperatura controlata si pot veni oricand sa o vad si sa mai umblu la ea.',
+                          rating: 5,
+                        ),
+                        ReviewCard(
+                          name: 'Raluca Dan',
+                          review:
+                              'Altfel arata sediul in zona de nord a capitalei. Tot aici depozitez si toate actele firmei, simplu, safe, foarte misto. Imi place totul aici. Daca puteam, imi faceam si biroul tot aici :))',
+                          rating: 4,
+                        ),
+                        ReviewCard(
+                          name: 'Mihnea Radu',
+                          review:
+                              'Apreciez mult faptul ca se pune pret pe confidentialitate, securitate si curatenie. Am depozitat obiecte de valoare si prin faptul ca exista paza fizica mereu si nu a trebuit sa dau nicio explicatie, am simtit ca lucrurile mele sunt foarte in siguranta. Multumesc!',
+                          rating: 5,
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-            )*/
+            )
           ],
         ),
       ),
