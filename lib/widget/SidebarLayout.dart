@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:self_storage_web_site/webSite/staticVar.dart';
 import 'package:self_storage_web_site/widget/button.dart';
@@ -10,7 +12,32 @@ import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 class SidebarLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return staticVar.golobalWidth(context) < 600 ?
+    Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CardList(),
+            Container(
+              width: staticVar.golobalWidth(context) * .3,
+              // Adjust the width as needed
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Cta(),
+                  IconList(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ) :
+    Padding(
       padding: const EdgeInsets.all(18.0),
       child: Container(
         child: Row(
@@ -43,14 +70,16 @@ class CardList extends StatelessWidget {
     return Theme(
       data: ThemeData(backgroundColor: Colors.white),
       child: Container(
-          width: staticVar.golobalWidth(context) * .65,
+          width: staticVar.golobalWidth(context) < 600 ? staticVar.golobalWidth(context)  : staticVar.golobalWidth(context) * .65,
           height: staticVar.golobalHigth(context) * .45,
+          //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
           child: Card(
             color: Colors.white,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(18.0),
+                 padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -83,12 +112,14 @@ class CardList extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                          width: staticVar.golobalWidth(context) * .15,
-                          height: staticVar.golobalHigth(context) * .2,
-                          child: Image.asset('assets/m2.jpg' , fit: BoxFit.cover,)),
+                      Expanded(
+                        child: Container(
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                            width: staticVar.golobalWidth(context) * .15,
+                            height: staticVar.golobalHigth(context) * .2,
+                            child: Image.asset('assets/m2.jpg' , fit: BoxFit.cover,)),
+                      ),
                       Container(
                         padding: EdgeInsets.all(16.0),
                         child: Column(
@@ -156,8 +187,8 @@ class Cta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: staticVar.golobalWidth(context) * .3,
-      height: staticVar.golobalHigth(context) * .25,
+      width: staticVar.golobalWidth(context) * .40,
+      height: staticVar.golobalHigth(context) * .35,
       decoration: BoxDecoration(
           color: Colors.black, borderRadius: BorderRadius.circular(30)),
       margin: EdgeInsets.only(bottom: 16.0),
@@ -165,15 +196,15 @@ class Cta extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
+
         children: [
           Text(
             'Rezervă online',
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
           ),
-          SizedBox(height: 8.0),
-          TextRenderer(
-            text : 'În mai puțin de 3 minute poți rezerva un spațiu de depozitare pentru nevoile tale sau ale afacerii tale. Simplu, rapid și fără riscuri!',
+          SizedBox(height: 1.0),
+          Flexible(
             child: Text(
               style:
                   GoogleFonts.roboto(textStyle: TextStyle(color: Colors.white)),

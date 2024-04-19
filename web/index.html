@@ -2,6 +2,62 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <style>
+    /* CSS code for hiding text */
+    p, span, h1, h2, h3, h4, h5, h6 ,a , li {
+      /* Apply visually-hidden styles to these elements */
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+    <style>
+    /* Use CSS to set the color of all text to white */
+    body {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0; /* Set background color */
+
+    }
+
+
+.lds-dual-ring,
+.lds-dual-ring:after {
+  box-sizing: border-box;
+}
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6.4px solid orange; /* Set border color to orange */
+  border-color: orange transparent orange transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+  </style>
     <meta name="description" content="We are committed to safeguarding the privacy of our website visitors; this policy sets out how we will treat your personal information. Our website uses...">
     <meta name="description" content="View the insurance policy with us provided by Basil Fry.">
     <meta name="description" content="Unități de stocare automată în SelfStorage Poligrafiei București | Închiriere simplă și convenabilă online, Temperatură optimă, Boxe de diferite dimensiuni">
@@ -92,6 +148,7 @@
     <script src="flutter.js" defer></script>
 </head>
 <body>
+<div class="lds-dual-ring"></div>
 <title>SelfStorage România - Soluția ta inteligentă de depozitare</title>
 <title>SelfStorage Poligrafiei București unități de stocare | Self Storage.ro</title>
 <title>FAQ | Self Storage.ro</title>

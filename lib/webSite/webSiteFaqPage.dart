@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:self_storage_web_site/webSite/staticVar.dart';
 import 'package:self_storage_web_site/widget/SidebarLayout.dart';
@@ -25,6 +26,74 @@ class webSiteFaqPage extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
+            staticVar.golobalWidth(context) < 600 ?
+            Container(
+              //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+              width: double.infinity,
+              height: staticVar.golobalHigth(context) + 200,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                // Adjust this according to your needs
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Soluția ta inteligentă de\ndepozitare!",
+                    style: GoogleFonts.roboto(
+                      textStyle: TextStyle(
+                          fontSize: staticVar.golobalHigth(context) * .05, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  // Add some space between the texts and the image
+                  Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Text(
+                      "Dacă sunteți în căutarea unui spațiu de depozitare în București, Self Storage vă pune la dispoziție boxe de diferite dimensiuni, securizate și dedicate afacerilor cât persoanelor fizice.",
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left:  20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Button(
+                          onTap: () {},
+                          text: "Alege boxa",
+                          pdding: EdgeInsets.zero,
+                        ),
+                        Button(
+                          onTap: () {},
+                          text: "Vizionați videoclipul nostru",
+                          width: 200,
+                        ),
+                      ],
+                    ),
+                  ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: staticVar.golobalWidth(context) ,
+                    height: staticVar.golobalHigth(context) * .4,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      image: DecorationImage(
+                        image: AssetImage('assets/m1.jpg'),
+                        fit: BoxFit.cover, // You can adjust the BoxFit property as needed
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+                ],
+              ),
+            ) :
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               // Adjust this according to your needs
@@ -169,20 +238,22 @@ class webSiteFaqPage extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Container(
-                    clipBehavior: Clip.hardEdge,
-                    width: staticVar.golobalWidth(context) * .5,
-                    height: staticVar.golobalHigth(context) * .8,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      // Ensures circular clipping
-                      child: Image.asset(
-                        "assets/m7.jpg",
-                        fit: BoxFit
-                            .cover, // Optional, to cover the entire container
+                  Expanded(
+                    child: Container(
+                      clipBehavior: Clip.hardEdge,
+                      width: staticVar.golobalWidth(context) * .5,
+                      height: staticVar.golobalHigth(context) * .8,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        // Ensures circular clipping
+                        child: Image.asset(
+                          "assets/m7.jpg",
+                          fit: BoxFit
+                              .cover, // Optional, to cover the entire container
+                        ),
                       ),
                     ),
                   )
@@ -437,7 +508,7 @@ class ReviewCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   review,
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: staticVar.golobalWidth(context) * .012),
                 ),
               ),
               SizedBox(

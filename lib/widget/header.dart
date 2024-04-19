@@ -125,9 +125,10 @@ class header extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 100),
+              padding:staticVar.golobalWidth(context) < 600 ?    const EdgeInsets.only(left: 10):   const EdgeInsets.only(left: 100),
               child: Image.network(
-                'https://www.selfstorage.ro/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdDdzIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--8a02b7a8c2386de7d348577dbb373fd94c254045/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDRG9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVFId2FRSGNPZ3h4ZFdGc2FYUjVhVjg9IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--429865581780dcbb4bf908197a6a60cc86b02240/Logo-Self-Storage-x3.png',
+                width: staticVar.golobalHigth(context) * .3,
+                'assets/logo.png',
               ),
             ),
             SizedBox(width: 20),
