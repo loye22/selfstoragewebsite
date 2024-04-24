@@ -41,13 +41,8 @@ class uniteCustomerCard extends StatelessWidget {
                 Container(
                     width: staticVar.golobalWidth(context) * .15,
                     height: staticVar.golobalWidth(context) * .1,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(this.imageUrl),
-                        fit: BoxFit.fill,
-                      ),
-                      //shape: BoxShape.circle,
-                    )),
+                  child: Image.network(this.imageUrl),
+                   ),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,

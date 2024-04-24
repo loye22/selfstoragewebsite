@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 
 class staticVar {
@@ -154,7 +155,7 @@ static void showOverlay({
 
 
 
-  //static Widget loading ({ double size = 100 , Color colors = Colors.orange })=> Center(child: LoadingAnimationWidget.staggeredDotsWave(color:colors , size: size,),);
+static Widget loading ({ double size = 100 , Color colors = Colors.orange })=> Center(child: LoadingAnimationWidget.staggeredDotsWave(color:colors , size: size,),);
 
   static Future<void> showSubscriptionSnackbar({required BuildContext context , required String msg}) async {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
