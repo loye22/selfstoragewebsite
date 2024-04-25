@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:self_storage_web_site/webSite/staticVar.dart';
+import 'package:self_storage_web_site/webSite/webSiteUnitsPage.dart';
 import 'package:self_storage_web_site/widget/SidebarLayout.dart';
 import 'package:self_storage_web_site/widget/button.dart';
 import 'package:self_storage_web_site/widget/footer.dart';
 import 'package:self_storage_web_site/widget/header.dart';
+import 'package:self_storage_web_site/widget/myDialog.dart';
 import 'package:self_storage_web_site/widget/panner.dart';
 import 'package:self_storage_web_site/widget/panner3.dart';
 import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
@@ -61,7 +63,11 @@ class webSiteHomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Button(
-                          onTap: () {},
+                          onTap: () {
+
+                            Navigator.of(context).pushNamed(webSiteUnitsPage.routeName);
+                            
+                          },
                           text: "Alege boxa",
                           pdding: EdgeInsets.zero,
                         ),
@@ -129,7 +135,10 @@ class webSiteHomePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Button(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pushNamed(webSiteUnitsPage.routeName);
+
+                            },
                             text: "Alege boxa",
                             pdding: EdgeInsets.zero,
                           ),
@@ -448,7 +457,9 @@ class webSiteHomePage extends StatelessWidget {
                     ),
                     SizedBox(height: 10,) ,
                     Button(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushNamed(webSiteUnitsPage.routeName);
+                      },
                       text: "Alege boxa",
                       pdding: EdgeInsets.zero,
                       lightMode : true

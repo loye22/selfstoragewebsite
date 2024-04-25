@@ -1,10 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:self_storage_web_site/webSite/staticVar.dart';
+import 'package:self_storage_web_site/webSite/webSiteUnitsPage.dart';
 import 'package:self_storage_web_site/widget/button.dart';
 import 'package:self_storage_web_site/widget/txtButton.dart';
 import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
-class header extends StatelessWidget {
+class header extends StatefulWidget {
+  @override
+  State<header> createState() => _headerState();
+}
+
+class _headerState extends State<header> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -147,7 +155,10 @@ class header extends StatelessWidget {
                       txt: 'Conectare',
                     ),
                     Button(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushNamed(webSiteUnitsPage.routeName);
+
+                      },
                       text: 'Alege boxa',
                       color: Color.fromRGBO(251, 171, 18, 1),
                     ),
@@ -160,4 +171,7 @@ class header extends StatelessWidget {
       ),
     );
   }
+
+
+
 }

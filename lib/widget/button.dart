@@ -22,21 +22,29 @@ class Button extends StatefulWidget {
 
 
 class _ButtonState extends State<Button> {
+  bool _isHovered = false;
+
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: widget.pdding,
-      child: GestureDetector(
-        onTap: widget.onTap, // Fix the variable name here
-        child: Container(
-          width:  widget.width == 0 ?  96 : widget.width,
-          height:    widget.height == 0 ?  40 : widget.height,
-          decoration: BoxDecoration(
-            color: widget.lightMode ?  Colors.white :  widget.color,
-            borderRadius: BorderRadius.circular(13),
+      child: MouseRegion(
+        cursor:SystemMouseCursors.click ,
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: GestureDetector(
+          onTap: widget.onTap, // Fix the variable name here
+          child: Container(
+            width:  widget.width == 0 ?  96 : widget.width,
+            height:    widget.height == 0 ?  40 : widget.height,
+            decoration: BoxDecoration(
+              color: widget.lightMode
+                  ? (_isHovered ? Colors.grey[300] : Colors.white)
+                  : (_isHovered ? Colors.grey[600] : widget.color),
+              borderRadius: BorderRadius.circular(13),
+            ),
+            child: Center(child: Text(widget.text, style: TextStyle(color:widget.lightMode ? staticVar.themeColor :  Colors.white , fontSize: 14))),
           ),
-          child: Center(child: Text(widget.text, style: TextStyle(color:widget.lightMode ? staticVar.themeColor :  Colors.white , fontSize: 14))),
         ),
       ),
     );

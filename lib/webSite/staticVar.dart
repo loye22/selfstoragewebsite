@@ -151,7 +151,10 @@ static void showOverlay({
 
   static Color c1 = Color.fromRGBO(33, 103, 199, 1) ;
 
-  static Widget divider()=>  Container(decoration: BoxDecoration(border: Border.all(color: Colors.grey , width:  .5)),);
+  static Widget divider({required double width})=>  Padding(
+    padding: const EdgeInsets.only(top:  20 , bottom:  20.0 ),
+    child: Container(width:width , decoration: BoxDecoration(border: Border.all(color: Colors.grey , width:  .5)),),
+  );
 
 
 

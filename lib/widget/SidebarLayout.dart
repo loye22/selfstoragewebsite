@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:self_storage_web_site/webSite/staticVar.dart';
+import 'package:self_storage_web_site/webSite/webSiteUnitsPage.dart';
 import 'package:self_storage_web_site/widget/button.dart';
 import 'package:self_storage_web_site/widget/copyTextWithFeedback.dart';
 import 'dart:html' as html;
@@ -12,55 +13,55 @@ import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 class SidebarLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return staticVar.golobalWidth(context) < 600 ?
-    Padding(
-      padding: const EdgeInsets.all(18.0),
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CardList(),
-            Container(
-              width: staticVar.golobalWidth(context) * .3,
-              // Adjust the width as needed
-              padding: EdgeInsets.all(16.0),
+    return staticVar.golobalWidth(context) < 600
+        ? Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Container(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Cta(),
-                  IconList(),
+                  CardList(),
+                  Container(
+                    width: staticVar.golobalWidth(context) * .3,
+                    // Adjust the width as needed
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Cta(),
+                        IconList(),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    ) :
-    Padding(
-      padding: const EdgeInsets.all(18.0),
-      child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CardList(),
-            Container(
-              width: staticVar.golobalWidth(context) * .3,
-              // Adjust the width as needed
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+          )
+        : Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Cta(),
-                  IconList(),
+                  CardList(),
+                  Container(
+                    width: staticVar.golobalWidth(context) * .3,
+                    // Adjust the width as needed
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Cta(),
+                        IconList(),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 }
 
@@ -70,7 +71,9 @@ class CardList extends StatelessWidget {
     return Theme(
       data: ThemeData(backgroundColor: Colors.white),
       child: Container(
-          width: staticVar.golobalWidth(context) < 600 ? staticVar.golobalWidth(context)  : staticVar.golobalWidth(context) * .65,
+          width: staticVar.golobalWidth(context) < 600
+              ? staticVar.golobalWidth(context)
+              : staticVar.golobalWidth(context) * .65,
           height: staticVar.golobalHigth(context) * .45,
           //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
           child: Card(
@@ -79,7 +82,7 @@ class CardList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                 padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -93,7 +96,10 @@ class CardList extends StatelessWidget {
                                 color: Colors.black),
                           )),
                       Button(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(webSiteUnitsPage.routeName);
+                        },
                         text: "Alege boxa",
                         pdding: EdgeInsets.zero,
                       )
@@ -108,17 +114,21 @@ class CardList extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 18 , right:  18 ),
+                  padding: const EdgeInsets.only(left: 18, right: 18),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: Container(
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10)),
                             width: staticVar.golobalWidth(context) * .15,
                             height: staticVar.golobalHigth(context) * .2,
-                            child: Image.asset('assets/m2.jpg' , fit: BoxFit.cover,)),
+                            child: Image.asset(
+                              'assets/m2.jpg',
+                              fit: BoxFit.cover,
+                            )),
                       ),
                       Container(
                         padding: EdgeInsets.all(16.0),
@@ -138,8 +148,19 @@ class CardList extends StatelessWidget {
                               style: TextStyle(fontSize: 16.0),
                             ),
                             SizedBox(height: 8.0),
-                            TextButton(child: Text('Vezi direcții',style: TextStyle(color: staticVar.themeColor , fontWeight: FontWeight.bold),) , onPressed: (){html.window.open("https://www.google.com/maps/dir/?api=1&destination=Bld.+Poligrafiei+nr.+1B%2C+%2C+Bucure%C8%99ti%2C+013704", 'new tab');
-                            },)
+                            TextButton(
+                              child: Text(
+                                'Vezi direcții',
+                                style: TextStyle(
+                                    color: staticVar.themeColor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
+                                html.window.open(
+                                    "https://www.google.com/maps/dir/?api=1&destination=Bld.+Poligrafiei+nr.+1B%2C+%2C+Bucure%C8%99ti%2C+013704",
+                                    'new tab');
+                              },
+                            )
                           ],
                         ),
                       ),
@@ -196,7 +217,6 @@ class Cta extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
-
         children: [
           Text(
             'Rezervă online',
@@ -224,7 +244,7 @@ class IconList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         TextRenderer(
-          text:'Bine de știut' ,
+          text: 'Bine de știut',
           child: Text(
             'Bine de știut',
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -236,20 +256,25 @@ class IconList extends StatelessWidget {
             Icons.check,
             color: staticVar.themeColor,
           ),
-          title: TextRenderer(text: 'Sisteme supraveghere 24/7', child: Text('Sisteme supraveghere 24/7')),
+          title: TextRenderer(
+              text: 'Sisteme supraveghere 24/7',
+              child: Text('Sisteme supraveghere 24/7')),
         ),
         ListTile(
           leading: Icon(Icons.check, color: staticVar.themeColor),
           title: TextRenderer(
-            text:'Programul cu publicul este de luni pana vineri, orele 7.00 - 15.00' ,
+            text:
+                'Programul cu publicul este de luni pana vineri, orele 7.00 - 15.00',
             child: Text(
                 'Programul cu publicul este de luni pana vineri, orele 7.00 - 15.00'),
           ),
         ),
         ListTile(
           leading: Icon(Icons.check, color: staticVar.themeColor),
-          title:
-          TextRenderer (text:  'Accesul cu card de luni pana duminica orele 6.30 - 23.00', child: Text('Accesul cu card de luni pana duminica orele 6.30 - 23.00')),
+          title: TextRenderer(
+              text: 'Accesul cu card de luni pana duminica orele 6.30 - 23.00',
+              child: Text(
+                  'Accesul cu card de luni pana duminica orele 6.30 - 23.00')),
         ),
         ListTile(
           leading: Icon(Icons.check, color: staticVar.themeColor),

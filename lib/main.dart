@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:self_storage_web_site/webSite/uniteReserve.dart';
 import 'package:self_storage_web_site/webSite/webSiteHomePage.dart';
 import 'package:self_storage_web_site/webSite/webSiteUnitsPage.dart';
+import 'package:self_storage_web_site/widget/MyCustomScrollBehavior.dart';
 import 'package:seo_renderer/helpers/renderer_state.dart';
 import 'package:seo_renderer/helpers/robot_detector_vm.dart';
 
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return RobotDetector(
       child: MaterialApp(
+        scrollBehavior: MyCustomScrollBehavior(),
         navigatorObservers: [seoRouteObserver],
         theme: ThemeData(
             textTheme: GoogleFonts.robotoTextTheme()
@@ -39,11 +42,12 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false ,
         title: 'Flutter Demo',
-        home:  webSiteUnitsPage(),
+        home:  webSiteHomePage(),
         routes: {
 
           webSiteHomePage.routeName: (ctx) => webSiteHomePage(),
           webSiteUnitsPage.routeName: (ctx) => webSiteUnitsPage(),
+          uniteReserve.routeName: (ctx) => uniteReserve(),
 
         },
       ),

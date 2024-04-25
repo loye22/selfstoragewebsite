@@ -10,15 +10,14 @@ class uniteCustomerCard extends StatelessWidget {
   final String unitName;
   final String description;
   final String price;
-  final VoidCallback? onPressed;
-
+  final Function onPressed;
   const uniteCustomerCard({
     Key? key,
     required this.imageUrl,
     required this.unitName,
     required this.description,
     required this.price,
-    this.onPressed,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -83,7 +82,7 @@ class uniteCustomerCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Button(onTap:(){this.onPressed;}, text: "Rezervă acum",width:  150,)
+                    Button(onTap:(){this.onPressed();}, text: "Rezervă acum",width:  150,)
                   ],
                 ) ,
 
