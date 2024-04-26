@@ -45,6 +45,7 @@ dependencies:
   firebase_core: ^2.30.0
   loading_animation_widget: ^1.2.1
   flutter_animate: ^4.5.0
+  syncfusion_flutter_pdfviewer: ^25.1.41
 
 dev_dependencies:
   flutter_test:

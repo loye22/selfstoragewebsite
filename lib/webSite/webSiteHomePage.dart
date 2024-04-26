@@ -14,7 +14,7 @@ import 'package:self_storage_web_site/widget/panner3.dart';
 import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 class webSiteHomePage extends StatelessWidget {
-  static final routeName = "/webSiteFaqPage";
+  static final routeName = "/webSiteHomePage";
 
   @override
   Widget build(BuildContext context) {
