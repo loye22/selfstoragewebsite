@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           // You can also configure other theme properties here
         ),
         debugShowCheckedModeBanner: false ,
-        title: 'Flutter Demo',
+        title: 'SelfStorage Romania',
         home:  webSiteHomePage(),
         routes: {
 
