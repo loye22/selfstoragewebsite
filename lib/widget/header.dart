@@ -5,6 +5,7 @@ import 'package:self_storage_web_site/webSite/FQApage.dart';
 import 'package:self_storage_web_site/webSite/staticVar.dart';
 import 'package:self_storage_web_site/webSite/webSiteUnitsPage.dart';
 import 'package:self_storage_web_site/widget/button.dart';
+import 'package:self_storage_web_site/widget/myDialog.dart';
 import 'package:self_storage_web_site/widget/txtButton.dart';
 import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
@@ -14,6 +15,15 @@ class header extends StatefulWidget {
 }
 
 class _headerState extends State<header> {
+  bool rederIt = false ;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchOptions();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,11 +31,11 @@ class _headerState extends State<header> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          staticVar.golobalWidth(context) < 600
+         this.rederIt ?  (staticVar.golobalWidth(context) < 600
               ? Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
+              this.rederIt ?   Container(
                 padding: EdgeInsets.all(8.0),
                 color: Colors.orange,
                 child: Center(
@@ -40,7 +50,7 @@ class _headerState extends State<header> {
                     ),
                   ),
                 ),
-              ),
+              ) : SizedBox.shrink(),
               Container(
                 padding: EdgeInsets.all(8.0),
                 color: Colors.black,
@@ -130,14 +140,14 @@ class _headerState extends State<header> {
                 ),
               ),
             ],
-          ),
+          ))  : SizedBox.shrink(),
           SizedBox(height: 8.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: staticVar.golobalWidth(context) < 600
-                    ? const EdgeInsets.only(left: 10)
+                    ? const EdgeInsets.only(left: 5)
                     : const EdgeInsets.only(left: 100),
                 child: Image.asset(
                   width: staticVar.golobalHigth(context) * .3,
@@ -146,7 +156,7 @@ class _headerState extends State<header> {
               ),
               SizedBox(width: 20),
               Padding(
-                padding: const EdgeInsets.only(right: 50),
+                padding: staticVar.isItWebPlatform(context) ?  EdgeInsets.only(right: 50) : EdgeInsets.only(right: 0),
                 child: Row(
                   children: [
                     txtButton(
@@ -159,14 +169,14 @@ class _headerState extends State<header> {
                       onTap: () {},
                       txt: 'Conectare',
                     ),
-                    Button(
+                    staticVar.isItWebPlatform(context) ?  Button(
                       onTap: () {
                         Navigator.of(context).pushNamed(
                             webSiteUnitsPage.routeName);
                       },
                       text: 'Alege boxa',
                       color: Color.fromRGBO(251, 171, 18, 1),
-                    ),
+                    ) : SizedBox.shrink(),
                   ],
                 ),
               )
@@ -176,6 +186,33 @@ class _headerState extends State<header> {
       ),
     );
   }
+
+
+  Future<void> fetchOptions() async {
+    try {
+      // Get reference to the Firestore collection
+      CollectionReference optionsCollection =
+      FirebaseFirestore.instance.collection('options');
+
+      // Get document snapshot
+      DocumentSnapshot documentSnapshot =
+      await optionsCollection.doc('1').get();
+
+      // Check if document exists and retrieve 'hidePrices' field
+      if (documentSnapshot.exists) {
+        Map<String, dynamic> data = documentSnapshot.data() as Map<String,dynamic>;
+        this.rederIt =  !data['hidePromotion'];
+        setState(() {});
+
+      }
+    } catch (e) {
+      print("Error fetching hidePrices: $e");
+      MyDialog.showAlert(context, "Ok", "Error fetching hidePrices: $e");
+
+    }
+  }
+
+
 
 
 }

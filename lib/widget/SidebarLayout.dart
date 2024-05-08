@@ -8,22 +8,21 @@ import 'package:self_storage_web_site/widget/button.dart';
 import 'package:self_storage_web_site/widget/copyTextWithFeedback.dart';
 import 'dart:html' as html;
 
-import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 class SidebarLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return staticVar.golobalWidth(context) < 600
-        ? Padding(
+    return Padding(
             padding: const EdgeInsets.all(18.0),
-            child: Container(
-              child: Column(
+            child: Flex(
+              direction: staticVar.isItWebPlatform(context) ? Axis.horizontal : Axis.vertical ,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CardList(),
                   Container(
-                    width: staticVar.golobalWidth(context) * .3,
+                    width:staticVar.isItWebPlatform(context) ?  staticVar.golobalWidth(context) * .40 : staticVar.fullwidth(context),
+
                     // Adjust the width as needed
                     padding: EdgeInsets.all(16.0),
                     child: Column(
@@ -36,31 +35,7 @@ class SidebarLayout extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-          )
-        : Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CardList(),
-                  Container(
-                    width: staticVar.golobalWidth(context) * .3,
-                    // Adjust the width as needed
-                    padding: EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Cta(),
-                        IconList(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+
           );
   }
 }
@@ -71,10 +46,11 @@ class CardList extends StatelessWidget {
     return Theme(
       data: ThemeData(backgroundColor: Colors.white),
       child: Container(
-          width: staticVar.golobalWidth(context) < 600
-              ? staticVar.golobalWidth(context)
-              : staticVar.golobalWidth(context) * .65,
-          height: staticVar.golobalHigth(context) * .45,
+        // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+          width:staticVar.isItWebPlatform(context)
+              ? staticVar.golobalWidth(context)* .65
+              : staticVar.fullwidth(context) + 100 ,
+          height: staticVar.golobalHigth(context) * .55,
           //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
           child: Card(
             color: Colors.white,
@@ -118,7 +94,7 @@ class CardList extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
+                      staticVar.isItWebPlatform(context) ?  Expanded(
                         child: Container(
                             clipBehavior: Clip.antiAlias,
                             decoration: BoxDecoration(
@@ -128,8 +104,9 @@ class CardList extends StatelessWidget {
                             child: Image.asset(
                               'assets/m2.jpg',
                               fit: BoxFit.cover,
-                            )),
-                      ),
+                            ),
+                        ),
+                      ) : SizedBox.shrink(),
                       Container(
                         padding: EdgeInsets.all(16.0),
                         child: Column(
@@ -208,7 +185,7 @@ class Cta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: staticVar.golobalWidth(context) * .40,
+      width:staticVar.isItWebPlatform(context) ?  staticVar.golobalWidth(context) * .40 : staticVar.fullwidth(context),
       height: staticVar.golobalHigth(context) * .35,
       decoration: BoxDecoration(
           color: Colors.black, borderRadius: BorderRadius.circular(30)),
@@ -243,12 +220,9 @@ class IconList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        TextRenderer(
-          text: 'Bine de știut',
-          child: Text(
-            'Bine de știut',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+        Text(
+          'Bine de știut',
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 8.0),
         ListTile(
@@ -256,25 +230,17 @@ class IconList extends StatelessWidget {
             Icons.check,
             color: staticVar.themeColor,
           ),
-          title: TextRenderer(
-              text: 'Sisteme supraveghere 24/7',
-              child: Text('Sisteme supraveghere 24/7')),
+          title: Text('Sisteme supraveghere 24/7'),
         ),
         ListTile(
           leading: Icon(Icons.check, color: staticVar.themeColor),
-          title: TextRenderer(
-            text:
-                'Programul cu publicul este de luni pana vineri, orele 7.00 - 15.00',
-            child: Text(
-                'Programul cu publicul este de luni pana vineri, orele 7.00 - 15.00'),
-          ),
+          title: Text(
+              'Programul cu publicul este de luni pana vineri, orele 7.00 - 15.00'),
         ),
         ListTile(
           leading: Icon(Icons.check, color: staticVar.themeColor),
-          title: TextRenderer(
-              text: 'Accesul cu card de luni pana duminica orele 6.30 - 23.00',
-              child: Text(
-                  'Accesul cu card de luni pana duminica orele 6.30 - 23.00')),
+          title: Text(
+              'Accesul cu card de luni pana duminica orele 6.30 - 23.00'),
         ),
         ListTile(
           leading: Icon(Icons.check, color: staticVar.themeColor),

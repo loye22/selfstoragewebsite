@@ -1,15 +1,25 @@
-
 import 'dart:ui';
-
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 
+
+
 class staticVar {
+
+ static bool isItWebPlatform(BuildContext context){
+   // this function will return ture for web and false otherwise
+   if (MediaQuery.of(context).size.width <= 600) {
+     return false;
+   }
+   return true ;
+ }
+
+ static double fullHigth(BuildContext context) => MediaQuery.of(context).size.height ;
+ static double fullwidth(BuildContext context) => MediaQuery.of(context).size.width ;
 
 
   static TextStyle t1 = TextStyle(

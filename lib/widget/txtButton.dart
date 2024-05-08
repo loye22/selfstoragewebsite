@@ -13,6 +13,6 @@ class txtButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(onPressed: (){this.onTap();}, child: Text(this.txt ,style: staticVar.fontStyle1,)) ;
+    return TextButton( onPressed: (){this.onTap();}, child: Text(this.txt ,style: staticVar.fontStyle1,)) ;
   }
 }

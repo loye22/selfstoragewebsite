@@ -10,32 +10,30 @@ class panner extends StatelessWidget {
       color:staticVar.themeColor, // Background color for the container
       //padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child:staticVar.golobalWidth(context) < 600 ?
-        Center(
-          child: Container(
-            width: staticVar.golobalWidth(context) ,
-            height: staticVar.golobalHigth(context) * .4,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                KeySellingPoint(
-                  icon: Icons.check,
-                  text: 'Sisteme supraveghere 24/7',
-                ),
-                KeySellingPoint(
-                  icon: Icons.check,
-                  text: 'Programul cu publicul este de luni pana vineri, orele 7.00 - 15.00',
-                ),
-                KeySellingPoint(
-                  icon:Icons.check,
-                  text: 'Accesul cu card de luni pana duminica orele 6.30 - 23.00',
-                ),
-                KeySellingPoint(
-                  icon:Icons.check,
-                  text: 'Temperatură optimă',
-                ),
-              ],
-            ),
+        Container(
+          width: staticVar.golobalWidth(context) *2,
+          height: staticVar.golobalHigth(context) * .4,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              KeySellingPoint(
+                icon: Icons.check,
+                text: 'Sisteme supraveghere 24/7',
+              ),
+              KeySellingPoint(
+                icon: Icons.check,
+                text: 'Programul cu publicul este de luni pana vineri, orele 7.00 - 15.00',
+              ),
+              KeySellingPoint(
+                icon:Icons.check,
+                text: 'Accesul cu card de luni pana duminica orele 6.30 - 23.00',
+              ),
+              KeySellingPoint(
+                icon:Icons.check,
+                text: 'Temperatură optimă',
+              ),
+            ],
           ),
         ) :
         Center(

@@ -296,6 +296,7 @@ class _webSiteUnitsPageState extends State<webSiteUnitsPage> {
                   height: 200,
                 ),
                 Container(
+                  decoration: BoxDecoration(border: Border.all(color: Colors.red)),
                   height: 600,
                   child: Padding(
                     padding: const EdgeInsets.only(

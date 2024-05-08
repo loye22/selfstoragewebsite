@@ -15,11 +15,13 @@ class MyFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: staticVar.golobalHigth(context) * .6,
+        height:staticVar.isItWebPlatform(context) ?  staticVar.golobalHigth(context) * .6 :staticVar.golobalHigth(context) * 1.5,
         color: Color(0xFF18181B),
-        padding: EdgeInsets.all(110),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        padding:staticVar.isItWebPlatform(context) ? EdgeInsets.all(110) : EdgeInsets.all(30)  ,
+        child: Flex(
+          direction: staticVar.isItWebPlatform(context) ? Axis.horizontal : Axis.vertical ,
+          mainAxisAlignment: staticVar.isItWebPlatform(context) ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Column(

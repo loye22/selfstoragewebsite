@@ -8,11 +8,9 @@ import 'package:self_storage_web_site/widget/SidebarLayout.dart';
 import 'package:self_storage_web_site/widget/button.dart';
 import 'package:self_storage_web_site/widget/footer.dart';
 import 'package:self_storage_web_site/widget/header.dart';
-import 'package:self_storage_web_site/widget/myDialog.dart';
-import 'package:self_storage_web_site/widget/panner.dart';
+ import 'package:self_storage_web_site/widget/panner.dart';
 import 'package:self_storage_web_site/widget/panner3.dart';
-import 'package:self_storage_web_site/widget/testWidget.dart';
-import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
+ import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 class webSiteHomePage extends StatelessWidget {
   static final routeName = "/webSiteHomePage";
@@ -39,27 +37,30 @@ class webSiteHomePage extends StatelessWidget {
                 // Adjust this according to your needs
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Soluția ta inteligentă de\ndepozitare!",
-                    style: GoogleFonts.roboto(
-                      textStyle: TextStyle(
-                          fontSize: staticVar.golobalHigth(context) * .05, fontWeight: FontWeight.w700),
+                  Padding(
+                    padding: const EdgeInsets.only(left:  8.0),
+                    child: Text(
+                      "Soluția ta inteligentă de\ndepozitare!",
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            fontSize: staticVar.golobalHigth(context) * .05, fontWeight: FontWeight.w700),
+                      ),
                     ),
                   ),
                   SizedBox(height: 20),
                   // Add some space between the texts and the image
                   Padding(
-                    padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.only(left: 8.0 , right: 8.0 ),
                     child: Text(
                       "Dacă sunteți în căutarea unui spațiu de depozitare în București, Self Storage vă pune la dispoziție boxe de diferite dimensiuni, securizate și dedicate afacerilor cât persoanelor fizice.",
                       style: GoogleFonts.roboto(
                         textStyle: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w700),
+                            fontSize: 16),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left:  20.0),
+                    padding: const EdgeInsets.only(left:  8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -67,7 +68,7 @@ class webSiteHomePage extends StatelessWidget {
                           onTap: () {
 
                             Navigator.of(context).pushNamed(webSiteUnitsPage.routeName);
-                            
+
                           },
                           text: "Alege boxa",
                           pdding: EdgeInsets.zero,
@@ -80,19 +81,17 @@ class webSiteHomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: staticVar.golobalWidth(context) ,
-                    height: staticVar.golobalHigth(context) * .4,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      image: DecorationImage(
-                        image: AssetImage('assets/m1.jpg'),
-                        fit: BoxFit.cover, // You can adjust the BoxFit property as needed
-                      ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Container(
+                  width: staticVar.golobalWidth(context) + 30 ,
+                  height: staticVar.golobalHigth(context) * .4,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    image: DecorationImage(
+                      image: AssetImage('assets/m1.jpg'),
+                      fit: BoxFit.cover, // You can adjust the BoxFit property as needed
                     ),
                   ),
                 ),
@@ -162,6 +161,7 @@ class webSiteHomePage extends StatelessWidget {
             panner(),
             SidebarLayout(),
             Container(
+              height: staticVar.isItWebPlatform(context) ? staticVar.fullHigth(context) * .7  : staticVar.fullHigth(context) *2  ,
               padding: EdgeInsets.all(20.0),
               child: Column(
                 children: [
@@ -174,7 +174,8 @@ class webSiteHomePage extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  Row(
+                  Flex(
+                    direction: staticVar.isItWebPlatform(context) ? Axis.horizontal : Axis.vertical ,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -202,16 +203,14 @@ class webSiteHomePage extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(80),
-              height: staticVar.golobalHigth(context) * .99,
+              padding:staticVar.isItWebPlatform(context) ?  EdgeInsets.all(80) :  EdgeInsets.all(20)  ,
+              height: staticVar.isItWebPlatform(context) ?  staticVar.golobalHigth(context) * .99 : staticVar.golobalHigth(context) * 1.5 ,
               width: double.infinity,
               color: Color(0xFF18181B),
-              child: Row(
+              child: Flex(
+                direction: staticVar.isItWebPlatform(context) ? Axis.horizontal : Axis.vertical ,
                 children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 20, left: 20),
-                    margin: EdgeInsets.all(20.0),
-                    child: Column(
+                 Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -244,26 +243,24 @@ class webSiteHomePage extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
+
                   SizedBox(
                     width: 10,
                   ),
-                  Expanded(
-                    child: Container(
-                      clipBehavior: Clip.hardEdge,
-                      width: staticVar.golobalWidth(context) * .5,
-                      height: staticVar.golobalHigth(context) * .8,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        // Ensures circular clipping
-                        child: Image.asset(
-                          "assets/m7.jpg",
-                          fit: BoxFit
-                              .cover, // Optional, to cover the entire container
-                        ),
+                  Container(
+                    clipBehavior: Clip.hardEdge,
+                    width:staticVar.isItWebPlatform(context) ? staticVar.golobalWidth(context) * .5 : staticVar.golobalWidth(context) * 1.5  ,
+                    height:staticVar.isItWebPlatform(context) ?  staticVar.golobalHigth(context) * .8 : staticVar.golobalHigth(context) * .5  ,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      // Ensures circular clipping
+                      child: Image.asset(
+                        "assets/m7.jpg",
+                        fit: BoxFit
+                            .cover, // Optional, to cover the entire container
                       ),
                     ),
                   )
@@ -271,19 +268,22 @@ class webSiteHomePage extends StatelessWidget {
               ),
             ),
             Container(
-              height: 600,
+              height:staticVar.isItWebPlatform(context) ? 600 : staticVar.golobalHigth(context) * 2.5,
               child: Padding(
                 padding: const EdgeInsets.only(
                   top: 50,
                 ),
                 child: Column(
                   children: [
-                    Text(
-                      "Ce spun clienții noștri",
-                      style:
-                          TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+                    Center(
+                      child: Text(
+                        "Ce spun clienții noștri",
+                        style:
+                            TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    Row(
+                    Flex(
+                      direction: staticVar.isItWebPlatform(context) ? Axis.horizontal : Axis.vertical ,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -312,36 +312,38 @@ class webSiteHomePage extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(80),
-              height: staticVar.golobalHigth(context) + 100,
+
+              padding: staticVar.isItWebPlatform(context) ?  EdgeInsets.all(80) : EdgeInsets.all(5) ,
+              height: staticVar.isItWebPlatform(context) ?   staticVar.golobalHigth(context) + 100 :  staticVar.golobalHigth(context)  * 2.5  ,
               width: double.infinity,
               color: Color(0xFFF4F4F5),
-              child: Row(
-                children: [
-                  Container(
-                    clipBehavior: Clip.hardEdge,
-                    width: staticVar.golobalWidth(context) * .5,
-                    height: staticVar.golobalHigth(context) * .8,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      // Ensures circular clipping
-                      child: Image.asset(
-                        "assets/m7.jpg",
-                        fit: BoxFit
-                            .cover, // Optional, to cover the entire container
-                      ),
+              child: Flex(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                direction: staticVar.isItWebPlatform(context) ? Axis.horizontal : Axis.vertical ,
+                children:staticVar.isItWebPlatform(context) ?
+                [
+                Container(
+                  clipBehavior: Clip.hardEdge,
+                  width: staticVar.isItWebPlatform(context) ?  staticVar.golobalWidth(context) * .5 : staticVar.fullwidth(context)  ,
+                  height: staticVar.golobalHigth(context) * .8,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    // Ensures circular clipping
+                    child: Image.asset(
+                      "assets/m7.jpg",
+                      fit: BoxFit
+                          .cover, // Optional, to cover the entire container
                     ),
                   ),
+                ),
                   SizedBox(
                     width: 10,
                   ),
                   Container(
-                    width: staticVar.golobalWidth(context) * .4,
-                    padding: EdgeInsets.only(top: 20, left: 20),
-                    margin: EdgeInsets.all(20.0),
+                    width: staticVar.isItWebPlatform(context) ?  staticVar.golobalWidth(context) * .4 : null ,
                     child: SingleChildScrollView(
                       padding: EdgeInsets.all(20.0),
                       child: Column(
@@ -427,11 +429,120 @@ class webSiteHomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                ],
+                  ] :
+                [
+                  Container(
+                    clipBehavior: Clip.hardEdge,
+                    width: staticVar.isItWebPlatform(context) ?  staticVar.golobalWidth(context) * .5 : staticVar.fullwidth(context)  ,
+                    height: staticVar.golobalHigth(context) * .8,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      // Ensures circular clipping
+                      child: Image.asset(
+                        "assets/m7.jpg",
+                        fit: BoxFit
+                            .cover, // Optional, to cover the entire container
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    width: staticVar.isItWebPlatform(context) ?  staticVar.golobalWidth(context) * .4 : null ,
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Despre noi",
+                            style: TextStyle(
+                                fontSize: 36.0, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 10.0),
+                          Text(
+                            'Self Storage este soluția ideală pentru nevoile de depozitare atât pentru persoane fizice cât și juridice.',
+                            style: TextStyle(
+                                fontSize: 18.0, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 20.0),
+                          Text(
+                            'Cum ne diferențiem?',
+                            style: TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 10.0),
+                          Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.start,
+                            children: [
+                              Text(
+                                '- Asigurăm monitorizare permanentă',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Temperatura locației este controlată',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Închirierea boxei se face în doar câteva minute, complet online',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Îți poți găzdui chiar și sediul social al firmei în boxa ta',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Locație centrală',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20.0),
+                          Text(
+                            'Ce poți depozita în boxa ta?',
+                            style: TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 10.0),
+                          Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.start,
+                            children: [
+                              Text(
+                                '- Actele companiei fără riscul de a se deteriora datorită umezelii sau diferențelor extreme de temperatură',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Piese de mobilier și alte obiecte personale de care nu mai ai loc prin casă',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Motocicleta, anvelopele de iarnă, bicicletele tale și ale celor mici... toate într-un singur depozit',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              Text(
+                                '- Practic poți depozita orice, doar să alegi dimensiunea potrivită pentru boxa ta.',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20.0),
+                          Text(
+                            'Cu selfstorage-ul nostru, aveți posibilitatea de a gestiona spațiul dvs. în mod eficient și de a păstra lucrurile importante în condiții sigure.',
+                            style: TextStyle(fontSize: 16.0),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ].reversed.toList(),
               ),
             ),
             Container(
-              padding: EdgeInsets.all(80),
+              padding:staticVar.isItWebPlatform(context) ?  EdgeInsets.all(80) : EdgeInsets.all(20) ,
               height: staticVar.golobalHigth(context) * .5,
               width: double.infinity,
               color: staticVar.themeColor,
@@ -441,18 +552,19 @@ class webSiteHomePage extends StatelessWidget {
                   children: [
                     Text(
                       'Rezervă-ți spațiul de depozitare astăzi',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize:37.0,
-                          fontWeight: FontWeight.w700,
+                          fontSize:staticVar.isItWebPlatform(context) ?  37.0 : 24 ,
+                          fontWeight: FontWeight.bold,
                           color: Colors.white
                       ),
-                    ),  
-                    SizedBox(height: 15,) , 
+                    ),
+                    SizedBox(height: 15,) ,
                     Text(
                       'Răsfoiți opțiunile noastre de depozitare',
                       style: TextStyle(
-                        fontSize:18.0,
-                        fontWeight: FontWeight.bold,
+                        fontSize:staticVar.isItWebPlatform(context) ? 18.0 : 15,
+
                         color: Colors.white
                       ),
                     ),
@@ -466,8 +578,8 @@ class webSiteHomePage extends StatelessWidget {
                       lightMode : true
                     ),
 
-                
-                
+
+
                   ],
                 ),
               )
@@ -492,8 +604,8 @@ class ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: staticVar.golobalWidth(context) * .35,
-      height: staticVar.golobalHigth(context) * .45,
+      width: staticVar.isItWebPlatform(context) ? staticVar.golobalWidth(context) * .35 : staticVar.golobalWidth(context)  ,
+      height:staticVar.isItWebPlatform(context) ?  staticVar.golobalHigth(context) * .55 : staticVar.golobalHigth(context) * .7 ,
       child: Card(
         color: Color(0xFFEEECDC),
         margin: EdgeInsets.all(10),
@@ -520,7 +632,7 @@ class ReviewCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   review,
-                  style: TextStyle(fontSize: staticVar.golobalWidth(context) * .012),
+                  style:staticVar.isItWebPlatform(context) ? TextStyle(fontSize: staticVar.golobalWidth(context) * .012) : null,
                 ),
               ),
               SizedBox(
