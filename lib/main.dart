@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:self_storage_web_site/webSite/FQApage.dart';
+import 'package:self_storage_web_site/webSite/payingPage.dart';
 import 'package:self_storage_web_site/webSite/privacyPage.dart';
  import 'package:self_storage_web_site/webSite/uniteReserve.dart';
 import 'package:self_storage_web_site/webSite/webSiteHomePage.dart';
@@ -44,14 +45,14 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false ,
         title: 'SelfStorage Romania',
-        home:  webSiteHomePage(),
+        home:  payingPage(),
         routes: {
-
           webSiteHomePage.routeName: (ctx) => webSiteHomePage(),
           webSiteUnitsPage.routeName: (ctx) => webSiteUnitsPage(),
           uniteReserve.routeName: (ctx) => uniteReserve(),
           privacyPage.routeName: (ctx) => privacyPage(),
           FQApage.routeName: (ctx) => FQApage(),
+          payingPage.routeName: (ctx) => payingPage(),
         },
       ),
     );

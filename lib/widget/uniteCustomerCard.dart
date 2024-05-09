@@ -22,7 +22,9 @@ class uniteCustomerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return staticVar.isItWebPlatform(context) ?
+    // The web widget
+    Container(
         height: staticVar.golobalHigth(context) * .25,
         width: staticVar.golobalWidth(context) * .5,
         decoration: BoxDecoration(
@@ -89,6 +91,76 @@ class uniteCustomerCard extends StatelessWidget {
               ],
             ),
           ),
-        ));
+        )):
+    // The phone widget
+    Container(
+        height: staticVar.fullwidth(context) * .9,
+        width: staticVar.fullwidth(context) ,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Card(
+          surfaceTintColor: Colors.white,
+          elevation: 5,
+          color: Color(0xFFFFFFFF),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: staticVar.golobalWidth(context) *  .5,
+                  height: staticVar.golobalWidth(context) * .5,
+                  child: Image.network(this.imageUrl),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          this.unitName,
+                          style: GoogleFonts.roboto(
+                              fontSize: 24,
+                              color: staticVar.themeColor,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      Flexible(
+                        child: Text(
+                          this.description,
+                          style: GoogleFonts.roboto(
+                              fontSize: 14, fontWeight: FontWeight.w400),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          this.price,
+                          style: GoogleFonts.roboto(
+                              fontSize: 24, fontWeight: FontWeight.w400),
+                        ), Text(
+                          "/lună+TVA",
+                          style: GoogleFonts.roboto(
+                              fontSize: 14, fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                    Button(onTap:(){this.onPressed();}, text: "Rezervă acum",width:  staticVar.golobalWidth(context) ,)
+                  ],
+                ) ,
+
+              ],
+            ),
+          ),
+        )) ;
   }
 }
