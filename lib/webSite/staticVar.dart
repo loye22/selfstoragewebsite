@@ -163,7 +163,7 @@ static void showOverlay({
 
   static Widget divider({required double width})=>  Padding(
     padding: const EdgeInsets.only(top:  20 , bottom:  20.0 ),
-    child: Container(width:width , decoration: BoxDecoration(border: Border.all(color: Colors.grey , width:  .5)),),
+    child: Container(width:width , decoration: BoxDecoration(border: Border.all(color:  Color(0xFFE4E4E7) , width:  1)),),
   );
 
 
