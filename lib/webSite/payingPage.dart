@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -5,16 +6,20 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:self_storage_web_site/webSite/privacyPage.dart';
 import 'package:self_storage_web_site/webSite/staticVar.dart';
+import 'package:self_storage_web_site/widget/CouponValidationErrors.dart';
 import 'package:self_storage_web_site/widget/button.dart';
 import 'package:self_storage_web_site/widget/customeTextInput.dart';
 import 'package:self_storage_web_site/widget/header.dart';
+import 'package:self_storage_web_site/widget/myDialog.dart';
+import 'package:self_storage_web_site/widget/priceSummaryCard.dart';
 import 'package:self_storage_web_site/widget/selectDate.dart';
 import 'dart:html' as html;
 
 class payingPage extends StatefulWidget {
   static final routeName = "/payingPage";
+  final double unitePrice ;
 
-  const payingPage({super.key});
+  const payingPage({super.key, required this.unitePrice});
 
   @override
   State<payingPage> createState() => _payingPageState();
@@ -26,6 +31,7 @@ class _payingPageState extends State<payingPage> {
   TextEditingController phoneCont = TextEditingController();
   TextEditingController emailConfermationCont = TextEditingController();
   TextEditingController moveInDateCont = TextEditingController();
+  TextEditingController disocuntCodeCont = TextEditingController();
 
   // These are for Address collecting
   TextEditingController a1 = TextEditingController();
@@ -34,6 +40,10 @@ class _payingPageState extends State<payingPage> {
   TextEditingController a4 = TextEditingController();
 
   bool checkBox = false;
+  bool disocuntMode = false ;
+
+
+  Map<String,dynamic> disocuntCoupon = {} ;
 
   @override
   Widget build(BuildContext context) {
@@ -261,15 +271,17 @@ class _payingPageState extends State<payingPage> {
                           surfaceTintColor: Colors.white,
                           child: Container(
                             width: staticVar.fullwidth(context) * .28,
-                            height: staticVar.fullHigth(context) * .55,
+                            height: staticVar.fullHigth(context) * .75,
                             child: Column(
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           '2.5 metri pătrați',
@@ -280,16 +292,121 @@ class _payingPageState extends State<payingPage> {
                                         SizedBox(height: 5.0),
                                         Text(
                                           '6.75 metri cubi',
-                                          style: TextStyle(fontSize: 18.0),
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.grey),
                                         ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "€${widget.unitePrice}",
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            Text(
+                                              "/lună+TVA",
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          "Cod de reducere",
+                                          style: GoogleFonts.roboto(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400),
+                                        )
                                       ],
-                                    ) , 
+                                    ),
                                     SizedBox(
-                                        height: 170,
-                                        width: 170,
-                                        child: Image.network("https://firebasestorage.googleapis.com/v0/b/selfstorage-de099.appspot.com/o/employees%2F2024-03-08%2008%3A14%3A53.838Z.jpg?alt=media&token=f4f22e4f-1f9b-43ce-a7ab-04961ed463b4"))
+                                        height:
+                                            staticVar.fullwidth(context) * .1,
+                                        width:
+                                            staticVar.fullwidth(context) * .1,
+                                        child: Image.network(
+                                            fit: BoxFit.contain,
+                                            "https://firebasestorage.googleapis.com/v0/b/selfstorage-de099.appspot.com/o/employees%2F2024-03-08%2008%3A14%3A53.838Z.jpg?alt=media&token=f4f22e4f-1f9b-43ce-a7ab-04961ed463b4"))
                                   ],
-                                )
+                                ),
+                                Container(
+                                  width: staticVar.fullwidth(context) * .25,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    border:
+                                        Border.all(color: Colors.grey.shade300),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: TextField(
+                                            controller: disocuntCodeCont,
+                                            maxLength: 21,
+                                            decoration: InputDecoration(
+                                              counterText: "",
+                                              hintText:
+                                                  'Introdu codul de reducere',
+                                              border: InputBorder.none,
+                                            ),
+                                            keyboardType: TextInputType.text,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            onSubmitted: (_) {
+                                              // Callback when submitted
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Material(
+                                        color: Colors.transparent,
+                                        child: InkWell(
+                                          onTap: () async {
+                                            await getDiscountRecord(code: disocuntCodeCont.text);
+                                            print( this.disocuntCoupon.toString());
+
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 14.0,
+                                                horizontal: 16.0),
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              // You can replace this with your desired color
+                                              borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(4.0),
+                                                bottomRight:
+                                                    Radius.circular(4.0),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              'Aplica',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                               this.disocuntMode ?
+                               CouponValidationLabel(
+                                  isItAccepted: this.disocuntCoupon.isNotEmpty,
+                                ) : SizedBox.shrink(),
+                                staticVar.divider(
+                                    width: staticVar.fullwidth(context) * .25),
+                                priceSummaryCard(
+                                    amount: widget.unitePrice,
+                                    discount: (this.disocuntCoupon["isItFixed"] != null && this.disocuntCoupon["isItFixed"]) ? double.tryParse(this.disocuntCoupon["amountOff"] ?? "0.0") ?? 0.0 : double.tryParse(this.disocuntCoupon["percentOff"] ?? "0.0") ?? 0.0,
+                                    discountType: (disocuntCoupon["isItFixed"] != null && disocuntCoupon["isItFixed"]) ? DiscountType.Fixed : DiscountType.Percentage,
+                                    dataSummry:(v){} )
                               ],
                             ),
                           ),
@@ -305,6 +422,45 @@ class _payingPageState extends State<payingPage> {
       ),
     );
   }
+
+  DiscountType getDiscountType(Map<String, dynamic> data) {
+    if (data.containsKey('amountOff')) {
+      return DiscountType.Fixed;
+    }
+      return DiscountType.Percentage;
+
+  }
+
+  Future<Map<String, dynamic>> getDiscountRecord({required String code}) async {
+    // Access Firestore instance
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    try {
+      this.disocuntMode = true ;
+      this.disocuntCoupon = {} ;
+      // Query the "discount" collection where the "code" field matches the provided code
+      QuerySnapshot querySnapshot = await firestore.collection('discount').where('code', isEqualTo: code).get();
+
+      // Check if any documents match the query
+      if (querySnapshot.docs.isNotEmpty) {
+        // Return the data of the first document found as a Map<String, dynamic>
+        this.disocuntCoupon = querySnapshot.docs.first.data() as Map<String, dynamic> ;
+        setState(() {});
+        return querySnapshot.docs.first.data() as Map<String, dynamic>;
+      } else {
+        // If no matching documents are found, return null
+        this.disocuntCoupon = {} ;
+        setState(() {});
+        return {};
+      }
+    } catch (error) {
+      // Handle any errors
+      print('Error fetching discount record: $error');
+      MyDialog.showAlert(context, "Ok", "Error fetching discount record: $error");
+      return {};
+    }
+  }
+
 }
 
 //// this is helper widget for dropdown menu items

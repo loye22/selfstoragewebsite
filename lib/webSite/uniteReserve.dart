@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:self_storage_web_site/webSite/payingPage.dart';
 import 'package:self_storage_web_site/webSite/staticVar.dart';
 import 'package:self_storage_web_site/widget/button.dart';
 import 'package:self_storage_web_site/widget/copyTextWithFeedback.dart';
@@ -141,7 +142,14 @@ class _uniteReserveState extends State<uniteReserve> {
                                               .15 : 5,
                                         ),
                                         Button(
-                                          onTap: () {},
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => payingPage( unitePrice:  double.tryParse(receivedData["price"] ?? "0.0") ?? 0.0),
+                                              ),
+                                            );
+                                          },
                                           text: "Rezervă acum",
                                           width:staticVar.isItWebPlatform(context) ? staticVar.golobalWidth(context) *
                                               .1 : staticVar.golobalWidth(context) *.35,

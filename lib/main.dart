@@ -45,14 +45,14 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false ,
         title: 'SelfStorage Romania',
-        home:  payingPage(),
+        home:  webSiteHomePage(),
         routes: {
           webSiteHomePage.routeName: (ctx) => webSiteHomePage(),
           webSiteUnitsPage.routeName: (ctx) => webSiteUnitsPage(),
           uniteReserve.routeName: (ctx) => uniteReserve(),
           privacyPage.routeName: (ctx) => privacyPage(),
           FQApage.routeName: (ctx) => FQApage(),
-          payingPage.routeName: (ctx) => payingPage(),
+
         },
       ),
     );
