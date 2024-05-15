@@ -146,7 +146,7 @@ class _uniteReserveState extends State<uniteReserve> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) => payingPage( unitePrice:  double.tryParse(receivedData["price"] ?? "0.0") ?? 0.0),
+                                                builder: (context) => payingPage(data: receivedData,),
                                               ),
                                             );
                                           },

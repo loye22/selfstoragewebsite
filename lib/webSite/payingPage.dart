@@ -14,12 +14,13 @@ import 'package:self_storage_web_site/widget/myDialog.dart';
 import 'package:self_storage_web_site/widget/priceSummaryCard.dart';
 import 'package:self_storage_web_site/widget/selectDate.dart';
 import 'dart:html' as html;
+import 'package:email_validator/email_validator.dart';
 
 class payingPage extends StatefulWidget {
   static final routeName = "/payingPage";
-  final double unitePrice ;
+   final Map<String ,dynamic> data ;
 
-  const payingPage({super.key, required this.unitePrice});
+  const payingPage({super.key,   this.data = const {"price" : "22.22" , "uniteData" : {"unitTypeName":"18 metri pătrați" , "description" : "48.60 metri cubi"}}});
 
   @override
   State<payingPage> createState() => _payingPageState();
@@ -44,6 +45,8 @@ class _payingPageState extends State<payingPage> {
 
 
   Map<String,dynamic> disocuntCoupon = {} ;
+  Map<String,dynamic> couponValidation = {} ;
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +82,12 @@ class _payingPageState extends State<payingPage> {
                         customeTextInput(
                           label: "Adresa de e-mail *",
                           controller: emailCont,
+                          isItEmail : true
                         ),
                         customeTextInput(
                           label: "Confirmați adresa de e-mail *",
                           controller: emailConfermationCont,
+                          isItEmail: true ,
                         ),
                         customeTextInput(
                           label: "Număr de telefon *",
@@ -220,8 +225,10 @@ class _payingPageState extends State<payingPage> {
                                             ..onTap = () {
                                               // Handle privacy policy link tap
                                               // Add your navigation or action here
-                                              Navigator.of(context).pushNamed(
-                                                  privacyPage.routeName);
+                                              html.window.open(
+                                                "http://selfstorage.web.app/#/privacyPage",
+                                                  'new tab');
+
                                             },
                                         ),
                                       ],
@@ -231,7 +238,7 @@ class _payingPageState extends State<payingPage> {
                               ),
                               SizedBox(height: 16.0),
                               Button(
-                                onTap: () {},
+                                onTap: submit,
                                 text: "Confirmați rezervarea acum",
                                 width: staticVar.fullwidth(context) * .5,
                               ),
@@ -264,9 +271,7 @@ class _payingPageState extends State<payingPage> {
                     padding: EdgeInsets.all(20.0),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 100,
-                        ),
+                        SizedBox(height: 100,),
                         Card(
                           surfaceTintColor: Colors.white,
                           child: Container(
@@ -284,14 +289,14 @@ class _payingPageState extends State<payingPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '2.5 metri pătrați',
+                                         widget.data["uniteData"]?["unitTypeName"] ?? "404NotFound",
                                           style: TextStyle(
                                               fontSize: 22.0,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(height: 5.0),
                                         Text(
-                                          '6.75 metri cubi',
+                                          widget.data["description"] ?? "404Error",
                                           style: TextStyle(
                                               fontSize: 18.0,
                                               color: Colors.grey),
@@ -302,7 +307,7 @@ class _payingPageState extends State<payingPage> {
                                         Row(
                                           children: [
                                             Text(
-                                              "€${widget.unitePrice}",
+                                              "€" + widget.data["price"],
                                               style: GoogleFonts.roboto(
                                                   fontSize: 24,
                                                   fontWeight: FontWeight.w500),
@@ -403,7 +408,7 @@ class _payingPageState extends State<payingPage> {
                                 staticVar.divider(
                                     width: staticVar.fullwidth(context) * .25),
                                 priceSummaryCard(
-                                    amount: widget.unitePrice,
+                                    amount: double.tryParse(widget.data["price"] ?? "0.0") ?? 0.0 ,
                                     discount: (this.disocuntCoupon["isItFixed"] != null && this.disocuntCoupon["isItFixed"]) ? double.tryParse(this.disocuntCoupon["amountOff"] ?? "0.0") ?? 0.0 : double.tryParse(this.disocuntCoupon["percentOff"] ?? "0.0") ?? 0.0,
                                     discountType: (disocuntCoupon["isItFixed"] != null && disocuntCoupon["isItFixed"]) ? DiscountType.Fixed : DiscountType.Percentage,
                                     dataSummry:(v){} )
@@ -423,12 +428,45 @@ class _payingPageState extends State<payingPage> {
     );
   }
 
+  void submit(){
+    if(this.nameCont.text.trim().isEmpty) {
+      // if the the neme field is empty return back!
+      MyDialog.showAlert(context, "Ok",
+          "Vă rugăm să completați câmpul de nume și încercați din nou");
+      return;
+    }
+
+    //Check if the email is valid c
+    if( !EmailValidator.validate(this.emailCont.text.trim())){
+      MyDialog.showAlert(context, "Ok",
+          "Vă rugăm să introduceți o adresă de email validă și încercați din nou");
+      return;
+    }
+
+    // Check if the 2 emails match
+    if(this.emailCont.text.trim() != this.emailConfermationCont.text.trim()){
+      MyDialog.showAlert(context, "Ok",
+          "Vă rugăm să vă asigurați că ambele adrese de email pe care le-ați introdus sunt potrivite");
+      return;
+    }
+
+    // Check the phoneNr is not empty
+    if(this.phoneCont.text.trim().isEmpty){
+      MyDialog.showAlert(context, "Ok",
+          "Vă rugăm să introduceți numărul de telefon.");
+      return;
+    }
+
+
+
+
+  }
+
   DiscountType getDiscountType(Map<String, dynamic> data) {
     if (data.containsKey('amountOff')) {
       return DiscountType.Fixed;
     }
       return DiscountType.Percentage;
-
   }
 
   Future<Map<String, dynamic>> getDiscountRecord({required String code}) async {
@@ -443,6 +481,18 @@ class _payingPageState extends State<payingPage> {
 
       // Check if any documents match the query
       if (querySnapshot.docs.isNotEmpty) {
+        // Validate the coupon
+        this.couponValidation = querySnapshot.docs.first.data() as Map<String, dynamic> ;
+        bool isValid = couponValidator(coupon: this.couponValidation)["isValid"];
+        print(couponValidator(coupon: this.couponValidation) );
+        if(!isValid){
+          // in case the coupon is not valid for what ever reason retun ;;;
+          this.disocuntCoupon = {} ;
+          setState(() {});
+          return{};
+        }
+
+
         // Return the data of the first document found as a Map<String, dynamic>
         this.disocuntCoupon = querySnapshot.docs.first.data() as Map<String, dynamic> ;
         setState(() {});
@@ -460,6 +510,58 @@ class _payingPageState extends State<payingPage> {
       return {};
     }
   }
+
+  Map<String,dynamic> couponValidator({required dynamic coupon }){
+    // Return True for valid coupon and false otherwise
+    // This function will check if the coupon is valid or not ,
+    // for example it will check that the coupon is not expired
+    // and its not used in case its on time use only .... etc
+    if (coupon == null) {
+      return {"reason" : "Coupon not found" , "isValid" : false };
+    }
+    try {
+      if (coupon['couponName'] == 'None') {
+        return   {"reason" : "No discount selected  " , "isValid" : false };
+      }
+
+      // this will hanel if the coupon one time used
+      if (coupon['durationType'] != null &&
+          coupon['durationType'] == 'once' &&
+          coupon['isItUsed']) {
+        return  {"reason" : "This coupon has already been used and is valid for one-time use only." , "isValid" : false };
+      }
+
+      // this will handel the expierd coupon on dates
+      if (coupon['expirationType'] != null &&
+          coupon['expirationType']["expDate"] != null &&
+          isTimestampExpired(coupon['expirationType']["expDate"])) {
+        return   {"reason" : "This coupon is expired!" , "isValid" : false };
+      }
+      return {"reason" : "" , "isValid" : true };
+    } catch (e) {
+      MyDialog.showAlert(context, "Ok", "Error $e");
+      return {} ;
+    }
+  }
+
+  bool isTimestampExpired(Timestamp expiryTimestamp) {
+    // Get the current timestamp
+    Timestamp currentTimestamp = Timestamp.now();
+
+    // Convert the Firebase Timestamp to a DateTime object
+    DateTime expiryDateTime = expiryTimestamp.toDate();
+
+    // Compare the expiry date to the current date
+    if (currentTimestamp.seconds > expiryTimestamp.seconds) {
+      // Timestamp is expired
+      return true;
+    } else {
+      // Timestamp is not expired
+      return false;
+    }
+  }
+
+
 
 }
 
@@ -625,4 +727,12 @@ class dropDownMarkentingData extends StatelessWidget {
       ),
     );
   }
+
+
+
+
+
 }
+
+
+

@@ -13,13 +13,15 @@ class customeTextInput extends StatefulWidget {
 
   final bool IsItPhoneInput;
 
+  final bool isItEmail ;
 
   const customeTextInput(
       {super.key,
       required this.controller,
       required this.label,
       this.IsItPhoneInput = false,
-        this.addressTextController = const []
+        this.addressTextController = const [] ,
+        this.isItEmail = false
 
       });
 
@@ -218,7 +220,7 @@ class _customeTextInputState extends State<customeTextInput> {
                       child: TextField(
                         controller: widget.controller,
                         textAlign: TextAlign.left,
-                        maxLength: widget.IsItPhoneInput ? 10 : 20,
+                        maxLength: widget.IsItPhoneInput ? 10 : (widget.isItEmail ? 40 : 30),
                         inputFormatters: widget.IsItPhoneInput
                             ? <TextInputFormatter>[
                                 FilteringTextInputFormatter.allow(
