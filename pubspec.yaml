@@ -49,6 +49,7 @@ dependencies:
   syncfusion_flutter_charts: ^25.1.41+2
   fl_chart: ^0.67.0
   email_validator: ^2.1.17
+  flutter_widget_from_html: ^0.15.0
 
 dev_dependencies:
   flutter_test:

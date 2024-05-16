@@ -7,8 +7,11 @@ import 'package:self_storage_web_site/webSite/privacyPage.dart';
 import 'package:self_storage_web_site/webSite/staticVar.dart';
 import 'package:self_storage_web_site/webSite/webSiteHomePage.dart';
 import 'dart:html' as html;
-
 import 'package:self_storage_web_site/widget/copyTextWithFeedback.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:self_storage_web_site/widget/visaCardImage.dart';
+
+
 
 class MyFooter extends StatelessWidget {
   @override
@@ -23,6 +26,7 @@ class MyFooter extends StatelessWidget {
           mainAxisAlignment: staticVar.isItWebPlatform(context) ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,6 +151,7 @@ class MyFooter extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
                   Row(
                     children: [
                       IconButton(
@@ -171,6 +176,7 @@ class MyFooter extends StatelessWidget {
                       ),
                     ],
                   ),
+                  visaCardImage(),
                 ],
               ),
             ),

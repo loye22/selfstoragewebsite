@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:self_storage_web_site/webSite/privacyPage.dart';
@@ -15,12 +18,21 @@ import 'package:self_storage_web_site/widget/priceSummaryCard.dart';
 import 'package:self_storage_web_site/widget/selectDate.dart';
 import 'dart:html' as html;
 import 'package:email_validator/email_validator.dart';
+import 'package:self_storage_web_site/widget/visaCardImage.dart';
 
 class payingPage extends StatefulWidget {
   static final routeName = "/payingPage";
-   final Map<String ,dynamic> data ;
+  final Map<String, dynamic> data;
 
-  const payingPage({super.key,   this.data = const {"price" : "22.22" , "uniteData" : {"unitTypeName":"18 metri pătrați" , "description" : "48.60 metri cubi"}}});
+  const payingPage(
+      {super.key,
+      this.data = const {
+        "price": "22.22",
+        "uniteData": {
+          "unitTypeName": "18 metri pătrați",
+          "description": "48.60 metri cubi"
+        }
+      }});
 
   @override
   State<payingPage> createState() => _payingPageState();
@@ -41,12 +53,11 @@ class _payingPageState extends State<payingPage> {
   TextEditingController a4 = TextEditingController();
 
   bool checkBox = false;
-  bool disocuntMode = false ;
+  bool disocuntMode = false;
 
+  Map<String, dynamic> disocuntCoupon = {};
 
-  Map<String,dynamic> disocuntCoupon = {} ;
-  Map<String,dynamic> couponValidation = {} ;
-
+  Map<String, dynamic> couponValidation = {};
 
   @override
   Widget build(BuildContext context) {
@@ -80,14 +91,13 @@ class _payingPageState extends State<payingPage> {
                           controller: nameCont,
                         ),
                         customeTextInput(
-                          label: "Adresa de e-mail *",
-                          controller: emailCont,
-                          isItEmail : true
-                        ),
+                            label: "Adresa de e-mail *",
+                            controller: emailCont,
+                            isItEmail: true),
                         customeTextInput(
                           label: "Confirmați adresa de e-mail *",
                           controller: emailConfermationCont,
-                          isItEmail: true ,
+                          isItEmail: true,
                         ),
                         customeTextInput(
                           label: "Număr de telefon *",
@@ -226,9 +236,8 @@ class _payingPageState extends State<payingPage> {
                                               // Handle privacy policy link tap
                                               // Add your navigation or action here
                                               html.window.open(
-                                                "http://selfstorage.web.app/#/privacyPage",
+                                                  "http://selfstorage.web.app/#/privacyPage",
                                                   'new tab');
-
                                             },
                                         ),
                                       ],
@@ -266,17 +275,19 @@ class _payingPageState extends State<payingPage> {
                     ),
                   ),
                   Container(
-                    height: staticVar.fullHigth(context),
+                    height: staticVar.fullHigth(context) * 1.5 ,
                     width: staticVar.fullwidth(context) * .5,
                     padding: EdgeInsets.all(20.0),
                     child: Column(
                       children: [
-                        SizedBox(height: 100,),
+                        SizedBox(
+                          height: 100,
+                        ),
                         Card(
                           surfaceTintColor: Colors.white,
                           child: Container(
                             width: staticVar.fullwidth(context) * .28,
-                            height: staticVar.fullHigth(context) * .75,
+                            height: staticVar.fullHigth(context) * .85,
                             child: Column(
                               children: [
                                 Row(
@@ -289,14 +300,17 @@ class _payingPageState extends State<payingPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                         widget.data["uniteData"]?["unitTypeName"] ?? "404NotFound",
+                                          widget.data["uniteData"]
+                                                  ?["unitTypeName"] ??
+                                              "404NotFound",
                                           style: TextStyle(
                                               fontSize: 22.0,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(height: 5.0),
                                         Text(
-                                          widget.data["description"] ?? "404Error",
+                                          widget.data["description"] ??
+                                              "404Error",
                                           style: TextStyle(
                                               fontSize: 18.0,
                                               color: Colors.grey),
@@ -373,9 +387,10 @@ class _payingPageState extends State<payingPage> {
                                         color: Colors.transparent,
                                         child: InkWell(
                                           onTap: () async {
-                                            await getDiscountRecord(code: disocuntCodeCont.text);
-                                            print( this.disocuntCoupon.toString());
-
+                                            await getDiscountRecord(
+                                                code: disocuntCodeCont.text);
+                                            print(
+                                                this.disocuntCoupon.toString());
                                           },
                                           child: Container(
                                             padding: EdgeInsets.symmetric(
@@ -401,17 +416,35 @@ class _payingPageState extends State<payingPage> {
                                     ],
                                   ),
                                 ),
-                               this.disocuntMode ?
-                               CouponValidationLabel(
-                                  isItAccepted: this.disocuntCoupon.isNotEmpty,
-                                ) : SizedBox.shrink(),
+                                this.disocuntMode
+                                    ? CouponValidationLabel(
+                                        isItAccepted:
+                                            this.disocuntCoupon.isNotEmpty,
+                                      )
+                                    : SizedBox.shrink(),
                                 staticVar.divider(
                                     width: staticVar.fullwidth(context) * .25),
                                 priceSummaryCard(
-                                    amount: double.tryParse(widget.data["price"] ?? "0.0") ?? 0.0 ,
-                                    discount: (this.disocuntCoupon["isItFixed"] != null && this.disocuntCoupon["isItFixed"]) ? double.tryParse(this.disocuntCoupon["amountOff"] ?? "0.0") ?? 0.0 : double.tryParse(this.disocuntCoupon["percentOff"] ?? "0.0") ?? 0.0,
-                                    discountType: (disocuntCoupon["isItFixed"] != null && disocuntCoupon["isItFixed"]) ? DiscountType.Fixed : DiscountType.Percentage,
-                                    dataSummry:(v){} )
+                                    amount: double.tryParse(
+                                            widget.data["price"] ?? "0.0") ??
+                                        0.0,
+                                    discount: (this.disocuntCoupon["isItFixed"] != null &&
+                                            this.disocuntCoupon["isItFixed"])
+                                        ? double.tryParse(
+                                                this.disocuntCoupon["amountOff"] ??
+                                                    "0.0") ??
+                                            0.0
+                                        : double.tryParse(
+                                                this.disocuntCoupon["percentOff"] ??
+                                                    "0.0") ??
+                                            0.0,
+                                    discountType:
+                                        (disocuntCoupon["isItFixed"] != null &&
+                                                disocuntCoupon["isItFixed"])
+                                            ? DiscountType.Fixed
+                                            : DiscountType.Percentage,
+                                    dataSummry: (v) {}),
+                                visaCardImage()
                               ],
                             ),
                           ),
@@ -428,8 +461,8 @@ class _payingPageState extends State<payingPage> {
     );
   }
 
-  void submit(){
-    if(this.nameCont.text.trim().isEmpty) {
+  void submit() {
+    if (this.nameCont.text.trim().isEmpty) {
       // if the the neme field is empty return back!
       MyDialog.showAlert(context, "Ok",
           "Vă rugăm să completați câmpul de nume și încercați din nou");
@@ -437,36 +470,32 @@ class _payingPageState extends State<payingPage> {
     }
 
     //Check if the email is valid c
-    if( !EmailValidator.validate(this.emailCont.text.trim())){
+    if (!EmailValidator.validate(this.emailCont.text.trim())) {
       MyDialog.showAlert(context, "Ok",
           "Vă rugăm să introduceți o adresă de email validă și încercați din nou");
       return;
     }
 
     // Check if the 2 emails match
-    if(this.emailCont.text.trim() != this.emailConfermationCont.text.trim()){
+    if (this.emailCont.text.trim() != this.emailConfermationCont.text.trim()) {
       MyDialog.showAlert(context, "Ok",
           "Vă rugăm să vă asigurați că ambele adrese de email pe care le-ați introdus sunt potrivite");
       return;
     }
 
     // Check the phoneNr is not empty
-    if(this.phoneCont.text.trim().isEmpty){
-      MyDialog.showAlert(context, "Ok",
-          "Vă rugăm să introduceți numărul de telefon.");
+    if (this.phoneCont.text.trim().isEmpty) {
+      MyDialog.showAlert(
+          context, "Ok", "Vă rugăm să introduceți numărul de telefon.");
       return;
     }
-
-
-
-
   }
 
   DiscountType getDiscountType(Map<String, dynamic> data) {
     if (data.containsKey('amountOff')) {
       return DiscountType.Fixed;
     }
-      return DiscountType.Percentage;
+    return DiscountType.Percentage;
   }
 
   Future<Map<String, dynamic>> getDiscountRecord({required String code}) async {
@@ -474,73 +503,83 @@ class _payingPageState extends State<payingPage> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     try {
-      this.disocuntMode = true ;
-      this.disocuntCoupon = {} ;
+      this.disocuntMode = true;
+      this.disocuntCoupon = {};
       // Query the "discount" collection where the "code" field matches the provided code
-      QuerySnapshot querySnapshot = await firestore.collection('discount').where('code', isEqualTo: code).get();
+      QuerySnapshot querySnapshot = await firestore
+          .collection('discount')
+          .where('code', isEqualTo: code)
+          .get();
 
       // Check if any documents match the query
       if (querySnapshot.docs.isNotEmpty) {
         // Validate the coupon
-        this.couponValidation = querySnapshot.docs.first.data() as Map<String, dynamic> ;
-        bool isValid = couponValidator(coupon: this.couponValidation)["isValid"];
-        print(couponValidator(coupon: this.couponValidation) );
-        if(!isValid){
+        this.couponValidation =
+            querySnapshot.docs.first.data() as Map<String, dynamic>;
+        bool isValid =
+            couponValidator(coupon: this.couponValidation)["isValid"];
+        print(couponValidator(coupon: this.couponValidation));
+        if (!isValid) {
           // in case the coupon is not valid for what ever reason retun ;;;
-          this.disocuntCoupon = {} ;
+          this.disocuntCoupon = {};
           setState(() {});
-          return{};
+          return {};
         }
 
-
         // Return the data of the first document found as a Map<String, dynamic>
-        this.disocuntCoupon = querySnapshot.docs.first.data() as Map<String, dynamic> ;
+        this.disocuntCoupon =
+            querySnapshot.docs.first.data() as Map<String, dynamic>;
         setState(() {});
         return querySnapshot.docs.first.data() as Map<String, dynamic>;
       } else {
         // If no matching documents are found, return null
-        this.disocuntCoupon = {} ;
+        this.disocuntCoupon = {};
         setState(() {});
         return {};
       }
     } catch (error) {
       // Handle any errors
       print('Error fetching discount record: $error');
-      MyDialog.showAlert(context, "Ok", "Error fetching discount record: $error");
+      MyDialog.showAlert(
+          context, "Ok", "Error fetching discount record: $error");
       return {};
     }
   }
 
-  Map<String,dynamic> couponValidator({required dynamic coupon }){
+  Map<String, dynamic> couponValidator({required dynamic coupon}) {
     // Return True for valid coupon and false otherwise
     // This function will check if the coupon is valid or not ,
     // for example it will check that the coupon is not expired
     // and its not used in case its on time use only .... etc
     if (coupon == null) {
-      return {"reason" : "Coupon not found" , "isValid" : false };
+      return {"reason": "Coupon not found", "isValid": false};
     }
     try {
       if (coupon['couponName'] == 'None') {
-        return   {"reason" : "No discount selected  " , "isValid" : false };
+        return {"reason": "No discount selected  ", "isValid": false};
       }
 
       // this will hanel if the coupon one time used
       if (coupon['durationType'] != null &&
           coupon['durationType'] == 'once' &&
           coupon['isItUsed']) {
-        return  {"reason" : "This coupon has already been used and is valid for one-time use only." , "isValid" : false };
+        return {
+          "reason":
+              "This coupon has already been used and is valid for one-time use only.",
+          "isValid": false
+        };
       }
 
       // this will handel the expierd coupon on dates
       if (coupon['expirationType'] != null &&
           coupon['expirationType']["expDate"] != null &&
           isTimestampExpired(coupon['expirationType']["expDate"])) {
-        return   {"reason" : "This coupon is expired!" , "isValid" : false };
+        return {"reason": "This coupon is expired!", "isValid": false};
       }
-      return {"reason" : "" , "isValid" : true };
+      return {"reason": "", "isValid": true};
     } catch (e) {
       MyDialog.showAlert(context, "Ok", "Error $e");
-      return {} ;
+      return {};
     }
   }
 
@@ -560,10 +599,9 @@ class _payingPageState extends State<payingPage> {
       return false;
     }
   }
-
-
-
 }
+
+
 
 //// this is helper widget for dropdown menu items
 
@@ -727,12 +765,4 @@ class dropDownMarkentingData extends StatelessWidget {
       ),
     );
   }
-
-
-
-
-
 }
-
-
-
