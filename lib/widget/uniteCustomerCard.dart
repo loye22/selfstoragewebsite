@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:self_storage_web_site/webSite/priceInterestPage.dart';
 import 'package:self_storage_web_site/webSite/staticVar.dart';
 import 'package:self_storage_web_site/widget/button.dart';
 
@@ -11,13 +13,14 @@ class uniteCustomerCard extends StatelessWidget {
   final String description;
   final String price;
   final Function onPressed;
+  final bool hidePrices ;
   const uniteCustomerCard({
     Key? key,
     required this.imageUrl,
     required this.unitName,
     required this.description,
     required this.price,
-    required this.onPressed,
+    required this.onPressed,  this.hidePrices = false ,
   }) : super(key: key);
 
   @override
@@ -84,7 +87,13 @@ class uniteCustomerCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Button(onTap:(){this.onPressed();}, text: "Rezervă acum",width:  150,)
+
+                    this.hidePrices ? Button(onTap:(){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => priceInterestPage(uniteType: this.unitName,uniteDescription: this.description,url: this.imageUrl,)),
+                      );
+
+                    }, text: "Obțineți prețuri",width:  150,) : Button(onTap:(){this.onPressed();}, text: "Rezervă acum",width:  150,)
                   ],
                 ) ,
 

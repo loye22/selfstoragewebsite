@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:self_storage_web_site/webSite/FQApage.dart';
 import 'package:self_storage_web_site/webSite/payingPage.dart';
+import 'package:self_storage_web_site/webSite/priceInterestPage.dart';
 import 'package:self_storage_web_site/webSite/privacyPage.dart';
- import 'package:self_storage_web_site/webSite/uniteReserve.dart';
+import 'package:self_storage_web_site/webSite/uniteReserve.dart';
 import 'package:self_storage_web_site/webSite/webSiteHomePage.dart';
 import 'package:self_storage_web_site/webSite/webSiteUnitsPage.dart';
 import 'package:self_storage_web_site/widget/MyCustomScrollBehavior.dart';
-import 'package:seo_renderer/helpers/renderer_state.dart';
 import 'package:seo_renderer/helpers/robot_detector_vm.dart';
 
 Future<void> main() async {
@@ -38,20 +38,20 @@ class MyApp extends StatelessWidget {
     return RobotDetector(
       child: MaterialApp(
         scrollBehavior: MyCustomScrollBehavior(),
-        navigatorObservers: [seoRouteObserver],
         theme: ThemeData(
             textTheme: GoogleFonts.robotoTextTheme()
           // You can also configure other theme properties here
         ),
         debugShowCheckedModeBanner: false ,
         title: 'SelfStorage Romania',
-        home:  webSiteHomePage(),
+        home:  webSiteUnitsPage(),
         routes: {
           webSiteHomePage.routeName: (ctx) => webSiteHomePage(),
           webSiteUnitsPage.routeName: (ctx) => webSiteUnitsPage(),
           uniteReserve.routeName: (ctx) => uniteReserve(),
           privacyPage.routeName: (ctx) => privacyPage(),
           FQApage.routeName: (ctx) => FQApage(),
+          priceInterestPage.routeName: (ctx) => priceInterestPage(),
 
         },
       ),
