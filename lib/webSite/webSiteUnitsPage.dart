@@ -376,7 +376,8 @@ class _webSiteUnitsPageState extends State<webSiteUnitsPage> {
                   ),
                   reviews(),
                   whyShouldYouHireUs(),
-                  Button(onTap: removeEmailPreference,  text: "Delete the sharedprefrences "),
+                  Button(onTap: () async {await removeEmailPreference();},  text: "Delete the sharedprefrences " ,width: 300  ,)
+                  , Button(onTap: ()async{await  emailShareprefExisit();},  text: "emailShareprefExisit " ,width: 300  ,),
                   MyFooter(),
                 ],
               ),
@@ -405,19 +406,32 @@ class _webSiteUnitsPageState extends State<webSiteUnitsPage> {
 
   Future<void> removeEmailPreference() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove('email');
+    bool  res =await  prefs.remove('email');
+    staticVar.showSubscriptionSnackbar(context: context, msg: res.toString());
   }
-  Future<void> hidePriceAlgo() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  Future<void> emailShareprefExisit() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool?  res =await  prefs.getBool('email');
+    staticVar.showSubscriptionSnackbar(context: context, msg: "is it exsist? $res");
+  }
 
-    setState(() {
-      bool emailExist = prefs.getBool('email') ?? false;
-      print("share prefrence email "  + emailExist.toString());
-      if (this.hidePricesVarFromFireabse && !emailExist) {
-        this.hidePrices = true;
-      }
-      // print(this.hidePrices.toString() + " <<<<<<<<<<<<<<<<<hidePricesVarFromFireabse");
-    });
+  Future<void> hidePriceAlgo() async {
+   try{
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+     setState(() {
+       bool emailExist = prefs.getBool('email') ?? false;
+       print("share prefrence email "  + emailExist.toString());
+       if (this.hidePricesVarFromFireabse && !emailExist) {
+         this.hidePrices = true;
+       }
+       // print(this.hidePrices.toString() + " <<<<<<<<<<<<<<<<<hidePricesVarFromFireabse");
+     });
+   }
+   catch(e){
+     MyDialog.showAlert(context, "Ok", "Error fetching hidePrices value: $e");
+
+   }
   }
 
   Future<bool> options() async {
@@ -442,6 +456,7 @@ class _webSiteUnitsPageState extends State<webSiteUnitsPage> {
       }
     } catch (e) {
       // Error occurred
+      MyDialog.showAlert(context, "Ok", "Error fetching hidePrices value: $e");
       print("Error fetching hidePrices value: $e");
       return false; // or any default value you prefer
     }

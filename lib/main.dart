@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false ,
         title: 'SelfStorage Romania',
-        home:  webSiteUnitsPage(),
+        home:  webSiteHomePage(),
         routes: {
           webSiteHomePage.routeName: (ctx) => webSiteHomePage(),
           webSiteUnitsPage.routeName: (ctx) => webSiteUnitsPage(),
